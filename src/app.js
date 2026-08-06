@@ -5,6 +5,7 @@ const app = express();
 
 const tasksRoutes = require("./routes/tasks");
 const errorHandler = require("./middleware/errorHandler");
+const logger = require("./middleware/logger");
 
 
 app.use(express.json());
@@ -18,4 +19,5 @@ app.get("/", (req, res) => {
 });
 
 app.use(errorHandler);
+app.use(logger);
 module.exports = app;
