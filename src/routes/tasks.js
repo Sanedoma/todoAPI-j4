@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const tasks = require("../models/task");
+const validateTask = require("../middleware/validateTask");
 
 
 router.get("/", (req, res) => {
@@ -11,7 +12,7 @@ router.get("/", (req, res) => {
 
 });
 
-router.post("/", (req, res) => {
+router.post("/", validateTask, (req, res) => {
 
     const newTask = {
         id: tasks.length + 1,
