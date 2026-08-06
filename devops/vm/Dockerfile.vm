@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+
+
+RUN apt update && \
+    apt install -y openssh-server docker.io
+
+
+RUN mkdir /var/run/sshd
+
+
+RUN useradd -m deploy && \
+    echo "deploy:deploy" | chpasswd
+
+
+RUN usermod -aG docker deploy
+
+
+EXPOSE 22
+
+
+CMD ["/usr/sbin/sshd", "-D"]
