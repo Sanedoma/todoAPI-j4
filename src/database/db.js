@@ -2,7 +2,6 @@ require("dotenv").config({
     path: process.env.NODE_ENV === "test"
         ? ".env.test"
         : ".env",
-    override: true
 });
 
 const { Pool } = require("pg");
