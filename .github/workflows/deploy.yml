@@ -1,10 +1,14 @@
 name: Deploy Todo API
 
-on:
 
+on:
   push:
     branches:
       - main
+
+
+permissions:
+  contents: read
 
 
 jobs:
@@ -12,7 +16,10 @@ jobs:
   deploy:
 
     runs-on: ubuntu-latest
+
+
     steps:
+
       - name: Deploy through SSH
         uses: appleboy/ssh-action@v1.0.3
 
@@ -23,11 +30,15 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
           script: |
+
             docker pull ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }}
+
 
             docker stop todo-api || true
 
+
             docker rm todo-api || true
+
 
             docker run -d \
               --name todo-api \

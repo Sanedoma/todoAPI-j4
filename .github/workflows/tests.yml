@@ -10,12 +10,14 @@ on:
       - main
 
 
-jobs:
+permissions:
+  contents: read
 
+
+jobs:
   test:
 
     runs-on: ubuntu-latest
-
 
     steps:
 
@@ -23,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
