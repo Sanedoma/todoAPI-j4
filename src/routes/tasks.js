@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const tasks = require("../models/task");
+const { tasks } = require("../models/task");
 const validateTask = require("../middleware/validateTask");
 
 

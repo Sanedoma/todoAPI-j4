@@ -2,8 +2,11 @@ const request = require("supertest");
 
 const app = require("../../src/app");
 
+const { resetTasks } = require("../../src/models/task");
+
 
 describe("Tasks API", () => {
+
     beforeEach(() => {
         resetTasks();
     });
@@ -20,8 +23,6 @@ describe("Tasks API", () => {
             .toBeInstanceOf(Array);
 
     });
-
-
 
     test("POST /api/tasks crée une tâche", async () => {
 
@@ -71,7 +72,7 @@ describe("Tasks API", () => {
     test("PUT /api/tasks/:id modifie une tâche", async () => {
 
         const response = await request(app)
-            .put("/api/tasks/1")
+            .put("/api/tasks/2")
             .send({
                 title: "Apprendre Jest",
                 completed: true
