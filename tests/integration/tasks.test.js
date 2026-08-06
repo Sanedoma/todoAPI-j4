@@ -4,11 +4,15 @@ const app = require("../../src/app");
 
 const { resetTasks } = require("../../src/models/task");
 
-
+const pool = require("../../src/database/db");
 describe("Tasks API", () => {
-
-    beforeEach(() => {
-        resetTasks();
+    
+    beforeEach(async() => {
+        await resetTasks();
+    });
+    
+    afterAll(async () => {
+        await pool.end();
     });
 
     test("GET /api/tasks retourne les tâches", async () => {

@@ -1,0 +1,52 @@
+version: "3.8"
+
+
+services:
+
+
+  api:
+
+    build: .
+
+    container_name: todo-api
+
+    ports:
+      - "3000:3000"
+
+    env_file:
+      - .env
+
+    depends_on:
+      - postgres
+
+
+  postgres:
+
+    image: postgres:16
+
+    container_name: todo-postgres
+
+    environment:
+
+      POSTGRES_USER: ${DB_USER}
+
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+      POSTGRES_DB: ${DB_NAME}
+
+
+    ports:
+
+      - "5433:5432"
+
+
+    volumes:
+
+      - postgres_data:/var/lib/postgresql/data
+      - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+
+volumes:
+
+  postgres_data:
