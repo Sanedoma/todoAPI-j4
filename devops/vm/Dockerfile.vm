@@ -1,8 +1,10 @@
 FROM ubuntu:22.04
 
-
 RUN apt update && \
-    apt install -y openssh-server docker.io
+    apt install -y \
+    openssh-server \
+    docker.io \
+    docker-compose-v2
 
 
 RUN mkdir /var/run/sshd
