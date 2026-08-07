@@ -16,6 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check Docker
+        run: |
+          docker version
+          docker info
+
       - name: Login Docker Hub
         uses: docker/login-action@v3
         with:
@@ -35,9 +40,8 @@ jobs:
           k3d image import ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} -c todo-cluster
 
       - name: Update Kubernetes deployment
+        shell: powershell
         run: |
-          kubectl set image deployment/todo-api `
-            todo-api=${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} `
-            -n todo
+          kubectl set image deployment/todo-api todo-api=${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} -n todo
 
           kubectl rollout status deployment/todo-api -n todo
