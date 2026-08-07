@@ -10,4 +10,4 @@ scrape_configs:
 
     static_configs:
       - targets:
-          - api:3000
+          - todo-api:3000
