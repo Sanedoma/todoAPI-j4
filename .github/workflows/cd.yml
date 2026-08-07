@@ -34,11 +34,10 @@ jobs:
         run: |
           k3d image import ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} -c todo-cluster
 
-      - name: Deploy Kubernetes
+      - name: Update Kubernetes deployment
         run: |
-          kubectl set image deployment/todo-api \
-          todo-api=${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} \
-          -n todo
+          kubectl set image deployment/todo-api `
+            todo-api=${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} `
+            -n todo
 
-          kubectl rollout status deployment/todo-api \
-          -n todo
+          kubectl rollout status deployment/todo-api -n todo
