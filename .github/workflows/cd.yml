@@ -24,19 +24,15 @@ jobs:
 
       - name: Build image
         run: |
-          docker build \
-          -t ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} .
 
       - name: Push image
         run: |
-          docker push \
-          ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }}
 
       - name: Import image into k3d
         run: |
-          k3d image import \
-          ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} \
-          -c todo-cluster
+          k3d image import ${{ secrets.DOCKER_USERNAME }}/todo-api:${{ github.sha }} -c todo-cluster
 
       - name: Deploy Kubernetes
         run: |
